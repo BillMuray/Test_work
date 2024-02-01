@@ -22,16 +22,20 @@ class Database:
         request = """
             CREATE TABLE IF NOT EXISTS pictures(
             ID SERIAL PRIMARY KEY,
-            image bytea)
+            image bytea,
+            format VARCHAR(255),
+            size VARCHAR(255)
+            )
             """
         async with self.connection_pool.acquire() as connection:
             await connection.execute(request)
 
-    async def add_image(self, image: object) -> str:
-        request = """INSERT INTO pictures(image) VALUES($1) RETURNING ID"""
-        return await self.connection_pool.fetchval(request, image)
+    async def add_image(self, image: Picture) -> str:
 
-
+        request = """INSERT INTO pictures(image, format, size) 
+                     VALUES($1,$2,$3) RETURNING ID"""
+        return await self.connection_pool.fetchval(
+            request, image.image, image.format, image.size)
 
 db = Database()
 

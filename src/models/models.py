@@ -20,8 +20,9 @@ class CompressionParams(BaseModel):
 
 class Picture(BaseModel):
     image: Optional[bytes]
-    extension: Optional[str]
+    format: Optional[str]
     size: Optional[str]
+
 
 
 
