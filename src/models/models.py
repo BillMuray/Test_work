@@ -13,12 +13,14 @@ class ServerConfig(BaseModel):
 
 
 class CompressionParams(BaseModel):
+    picture_id: Optional[int]
     quality: Optional[int]
     width: Optional[int]
     high: Optional[int]
 
 
 class Picture(BaseModel):
+    id: Optional[int]
     image: Optional[bytes]
     format: Optional[str]
     size: Optional[str]

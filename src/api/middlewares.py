@@ -25,7 +25,6 @@ async def logger_middleware(_app: web.Application, view: Callable) -> Callable:
     async def middleware(request: web.Request) -> Any:
 
         with logger.contextualize(
-            time=datetime.utcfromtimestamp(time.time()),
             ip=request.remote,
             endpoint=request.path,
             method=request.method,

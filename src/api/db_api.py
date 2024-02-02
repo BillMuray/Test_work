@@ -30,12 +30,25 @@ class Database:
         async with self.connection_pool.acquire() as connection:
             await connection.execute(request)
 
-    async def add_image(self, image: Picture) -> str:
+    async def add_picture_to_db(self, picture: Picture) -> str:
 
         request = """INSERT INTO pictures(image, format, size) 
                      VALUES($1,$2,$3) RETURNING ID"""
         return await self.connection_pool.fetchval(
-            request, image.image, image.format, image.size)
+            request, picture.image, picture.format, picture.size)
+
+    async def get_picture_from_db(self, picture_id: int) -> bytes:
+        request = f"SELECT image FROM pictures WHERE id=$1"
+        return await self.connection_pool.fetchval(
+            request, picture_id)
+
+    async def get_picture_params_from_db(self, picture_id: int) -> dict:
+
+        request = f"SELECT id, format, size FROM pictures WHERE id=$1"
+        response = await self.connection_pool.fetchrow(request, picture_id)
+        picture = Picture(**response)
+        return picture.dict(exclude={"image"})
+
 
 db = Database()
 
