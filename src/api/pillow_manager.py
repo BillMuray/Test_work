@@ -1,17 +1,20 @@
 import io
 from PIL import Image
 from src.models.models import Picture, CompressionParams
-from typing import Optional
+from typing import Optional, Union
 
 
 class PillowManager:
     @classmethod
     def prepare_image_from_binary(cls, binary_data: bytes,
-                                  compress: Optional[CompressionParams]) -> Optional[
-        Picture]:
+                                  compress: Optional[CompressionParams]) -> Optional[Picture]:
 
         picture: Picture = Picture()
-        image = Image.open(io.BytesIO(binary_data))
+        try:
+            image = Image.open(io.BytesIO(binary_data))
+        except Exception as e:
+            raise e
+
         if compress or image.format != 'JPEG':
             try:
                 picture = cls.compress_image(image=image, compression_params=compress)
@@ -25,7 +28,7 @@ class PillowManager:
         return picture
 
     @classmethod
-    def compress_image(cls, image: Image, compression_params: CompressionParams):
+    def compress_image(cls, image: Union[Image.Image, bytes], compression_params: CompressionParams):
 
         if compression_params.width is None:
             compression_params.width = image.size[0]
@@ -33,6 +36,9 @@ class PillowManager:
             compression_params.high = image.size[1]
 
         picture: Picture = Picture()
+
+        if type(image) is bytes:
+            image = Image.open(io.BytesIO(image))
         compressed_image = image.resize(size=(compression_params.width,
                                               compression_params.high)
                                         )

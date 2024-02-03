@@ -22,5 +22,6 @@ def run() -> None:
 if __name__ == "__main__":
 
     init_logger()
+
     with log.contextualize(**LOGGER_EXTRAS):
         run()

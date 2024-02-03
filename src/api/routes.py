@@ -1,8 +1,7 @@
-PUT_PICTURE = "/put_picture"
-GET_PICTURE = "/get_picture"
-MODIFY_PICTURE = "/modify_picture"
-GET_PICTURE_PARAMETERS = "/get_picture_parameters"
-
-
+PICTURE = "/picture"
+MODIFY_PICTURE = "/picture/modify"
+PICTURE_PARAMETERS = "/picture/parameters"
+PICTURES_PARAMETERS = "/pictures/parameters"
+LOGS = "/logs"
 
 

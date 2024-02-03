@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator, ValidationError
 from typing import Optional
 
 
@@ -26,6 +26,12 @@ class Picture(BaseModel):
     size: Optional[str]
 
 
+class LoadPicturesParams(BaseModel):
+    dump_format: str
 
+    @validator('dump_format')
+    def check_format(cls, value: str) -> str:
+        if value.lower() not in ('csv', 'json'):
+            raise ValidationError(f'Не верный формат (только csv или json)')
 
-
+        return value.lower()

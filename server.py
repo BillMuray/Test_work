@@ -1,8 +1,8 @@
 from aiohttp import web
 from src.api import db_api
 from src.api import views
-from src.models.configurations import config
 from loguru import logger as log
+import auth
 
 
 class Server:
@@ -21,8 +21,8 @@ class Server:
     def _run(self) -> None:
         web.run_app(
             app=self._app,
-            host=config.host,
-            port=config.port
+            host=auth.HOST,
+            port=auth.PORT
         )
         log.info('server started')
 
