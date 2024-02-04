@@ -18,6 +18,11 @@ class Server:
     async def _on_shutdown(self, _app: web.Application) -> None:
         await self._db.connection_pool.close()
 
+    def _setup_app(self) -> None:
+        self._app.add_routes(views.routes)
+        self._app.on_startup.append(self._on_startup)
+        self._app.on_shutdown.append(self._on_shutdown)
+
     def _run(self) -> None:
         web.run_app(
             app=self._app,
@@ -27,9 +32,9 @@ class Server:
         log.info('server started')
 
     def run(self) -> None:
-
-        self._app.add_routes(views.routes)
-        self._app.on_startup.append(self._on_startup)
-        self._app.on_shutdown.append(self._on_shutdown)
-
+        self._setup_app()
         self._run()
+
+    def create_app(self) -> web.Application:
+        self._setup_app()
+        return self._app

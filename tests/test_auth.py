@@ -1,0 +1,12 @@
+HOST = '0.0.0.0'
+PORT = 8080
+POSTGRES_USER = 'user'
+POSTGRES_PASSWORD = 'password'
+POSTGRES_DB = "test_database"
+POSTGRES_HOST = "localhost"
+POSTGRES_PORT = 5433
+TOKEN = "test_token"
+ENABLE_LOGS = True
+ENABLE_FILE_LOGS = True
+ENABLE_STDOUT_LOGS = True
+

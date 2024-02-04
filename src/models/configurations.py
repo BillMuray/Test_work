@@ -9,6 +9,5 @@ LOGGER_EXTRAS = {
     'endpoint': '',
     'method': '',
     'request_id': '',
-    'params': '',
-    'input_json': ''
+    'params': ''
 }

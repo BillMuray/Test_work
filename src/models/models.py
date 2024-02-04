@@ -12,11 +12,25 @@ class ServerConfig(BaseModel):
     token: str
 
 
+class PictureGetParams(BaseModel):
+    picture_id: int
+
+
 class CompressionParams(BaseModel):
-    picture_id: Optional[int]
     quality: Optional[int]
     width: Optional[int]
     high: Optional[int]
+
+    @validator('quality')
+    def check_quality(cls, value: Optional[int]) -> Optional[int]:
+        if value:
+            if 0 < value > 100:
+                raise ValidationError(f'Параметр ''quality'' может быть от 0 до 100')
+        return value
+
+
+class ModifyCompressionParams(CompressionParams):
+    picture_id: int
 
 
 class Picture(BaseModel):

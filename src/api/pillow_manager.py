@@ -16,7 +16,9 @@ class PillowManager:
             raise e
 
         if compress or image.format != 'JPEG':
+            image = image.convert('RGB')
             try:
+
                 picture = cls.compress_image(image=image, compression_params=compress)
             except Exception as e:
                 raise e

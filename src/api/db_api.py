@@ -15,6 +15,7 @@ class Database:
             user=auth.POSTGRES_USER,
             password=auth.POSTGRES_PASSWORD,
             host=auth.POSTGRES_HOST,
+            port=auth.POSTGRES_PORT
         )
         print('Database has been successfully initialized ')
 
