@@ -5,16 +5,26 @@ description = ""
 authors = ["Iroh <iroh@mail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9.9"
+python = "^3.9.8"
 aiohttp = "3.8.5"
 asyncpg = "^0.28.0"
 pyyaml =  "6.0"
 pydantic = "^1.10.4"
 loguru = "0.7"
 pillow = "10.2.0"
-
-[tool.poetry.dev-dependencies]
+pytest = "8.0.0"
+pytest_asyncio = "0.19.0"
+pytest_aiohttp = "1.0.4"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+required_plugins = [
+    "pytest-asyncio",
+]
+pythonpath = ["tests"]
+
+
